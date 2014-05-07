@@ -13,13 +13,13 @@ namespace ServiceLauncher
 {
     public partial class FormAddServices : Form
     {
-        private string lastSearch = "", currentSearch = "";
+        private string _lastSearch = "", _currentSearch = "";
         private List<ServiceController> _foundServices;
-        private RelatedServicesManager _services;
+        private readonly RelatedServicesManager _services;
 
-        public FormAddServices(RelatedServicesManager _services)
+        public FormAddServices(RelatedServicesManager services)
         {
-            this._services = _services;
+            _services = services;
 
             InitializeComponent();
         }
@@ -33,24 +33,23 @@ namespace ServiceLauncher
         private void timerSearch_Tick(object sender, EventArgs e)
         {
             timerSearch.Stop();
-            currentSearch = this.textBoxKeyword.Text.Trim();
+            _currentSearch = textBoxKeyword.Text.Trim();
 
-            if (lastSearch.CompareTo(currentSearch) != 0)
-            {
-                lastSearch = currentSearch;
-                listBoxResults.Items.Clear();
+            if (_lastSearch.CompareTo(_currentSearch) == 0) return;
 
-                _foundServices = _services.GetRelatedServices(currentSearch);
+            _lastSearch = _currentSearch;
+            listBoxResults.Items.Clear();
 
-                foreach (ServiceController s in _foundServices)
-                    listBoxResults.Items.Add(String.Format("{0} ({1})", s.DisplayName, s.ServiceName));
-            }
+            _foundServices = _services.GetRelatedServices(_currentSearch);
+
+            foreach (var s in _foundServices)
+                listBoxResults.Items.Add(String.Format("{0} ({1})", s.DisplayName, s.ServiceName));
         }
 
         private void FormAddServices_Load(object sender, EventArgs e)
         {
-            this.Text = Settings.Default.services_add_title;
-            this.textBoxKeyword.Focus();
+            Text = Settings.Default.services_add_title;
+            textBoxKeyword.Focus();
         }
 
         internal List<ServiceController> ServicesToAdd

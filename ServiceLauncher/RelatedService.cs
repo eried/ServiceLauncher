@@ -21,9 +21,6 @@ namespace ServiceLauncher
 
     public class RelatedService
     {
-        private String _id, _name;
-        private CustomStartMode _mode;
-
         /// <summary>
         /// Servicio relacionado
         /// </summary>
@@ -32,59 +29,26 @@ namespace ServiceLauncher
         /// <param name="mode">Modo de inicio</param>
         public RelatedService(String id, String name, CustomStartMode mode)
         {
-            _id = id;
-            _name = name;
-            _mode = mode;
+            Id = id;
+            Name = name;
+            Mode = mode;
         }
 
         public RelatedService()  {  }
-        
+
         /// <summary>
         /// Identificador del proceso (nombre interno)
         /// </summary>
-        public String Id 
-        { 
-            get 
-            { 
-                return _id; 
-            }
-
-            set
-            {
-                _id = value;
-            }
-        }
+        public string Id { get; set; }
 
         /// <summary>
         /// Nombre del proceso
         /// </summary>
-        public String Name
-        {
-            get 
-            { 
-                return _name; 
-            }
-
-            set
-            {
-                _name = value;
-            }
-        }
+        public string Name { get; set; }
 
         /// <summary>
         /// Modo de inicio
         /// </summary>
-        public CustomStartMode Mode 
-        { 
-            get 
-            {
-                return _mode; 
-            }
-
-            set
-            {
-                _mode = value;
-            }
-        }
+        public CustomStartMode Mode { get; set; }
     }
 }

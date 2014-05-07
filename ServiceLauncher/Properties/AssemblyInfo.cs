@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("ServiceLauncher")]
-[assembly: AssemblyCopyright("Copyright Erwin Ried © 2010")]
+[assembly: AssemblyCopyright("Copyright Erwin Ried © 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.ServiceProcess;
+﻿using System.Linq;
 using Microsoft.Win32;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.ServiceProcess;
 
 namespace ServiceLauncher
 {
@@ -19,60 +18,56 @@ namespace ServiceLauncher
 
         internal Boolean Add(RelatedService r)
         {
-            if (!this.Exists(r.Id))
+            if (!Exists(r.Id))
             {
                 _services.Add(r);
                 return true;
             }
-            else
-                return false;
+            
+            return false;
         }
 
         internal Boolean Add(String id, String name, CustomStartMode mode)
         {
-            return this.Add(new RelatedService(id, name, mode));
+            return Add(new RelatedService(id, name, mode));
         }
 
         internal void AddRelatedServices(String text)
         {
-            this.Add(GetRelatedServices(text));
+            Add(GetRelatedServices(text));
         }
 
         internal List<ServiceController> GetRelatedServices(string text)
         {
-            List<ServiceController> output = new List<ServiceController>();
+            var output = new List<ServiceController>();
 
             text = text.ToLower().Trim();
 
             if(text.Length > 0)
-                foreach (ServiceController s in ServiceController.GetServices())
-                {
-                    if (s.DisplayName.ToLower().Contains(text) || s.ServiceName.ToLower().Contains(text))
-                        output.Add(s);
-                }
+                output.AddRange(ServiceController.GetServices().Where(s => s.DisplayName.ToLower().Contains(text) || s.ServiceName.ToLower().Contains(text)));
 
             return output;
         }
 
         internal void Add(List<ServiceController> list)
         {
-            foreach (ServiceController s in list)
-                this.Add(s);
+            foreach (var s in list)
+                Add(s);
         }
 
         private Boolean Add(ServiceController s)
         {
-            return this.Add(s.ServiceName);
+            return Add(s.ServiceName);
         }
 
         internal Boolean Add(String id, String name)
         {
-            return this.Add(new RelatedService(id, name, GetServiceStartMode(id)));
+            return Add(new RelatedService(id, name, GetServiceStartMode(id)));
         }
 
         internal Boolean Add(String id)
         {
-            return this.Add(new RelatedService(id, GetServiceName(id), GetServiceStartMode(id)));
+            return Add(new RelatedService(id, GetServiceName(id), GetServiceStartMode(id)));
         }
 
         private string GetServiceName(string id)
@@ -91,10 +86,7 @@ namespace ServiceLauncher
 
         internal Boolean Exists(String id)
         {
-            foreach (RelatedService r in _services)
-                if (r.Id.CompareTo(id) == 0)
-                    return true;
-            return false;
+            return _services.Any(r => r.Id.CompareTo(id) == 0);
         }
 
         internal Boolean Remove(String id)
@@ -122,7 +114,7 @@ namespace ServiceLauncher
 
                 // Evitar duplicados
                 foreach (RelatedService s in value)
-                    this.Add(s);
+                    Add(s);
             }
         }
 
@@ -134,11 +126,11 @@ namespace ServiceLauncher
         {
             try
             {
-                foreach (RelatedService r in _services)
+                foreach (var r in _services)
                 {
-                    ServiceController s = new ServiceController(r.Id);
+                    var s = new ServiceController(r.Id);
 
-                    if (isServiceValid(s))
+                    if (IsServiceValid(s))
                         SetServiceStartMode(r);
                 }
 
@@ -155,7 +147,7 @@ namespace ServiceLauncher
         /// </summary>
         /// <param name="s">Controlador de servicio a comprobar</param>
         /// <returns>Validez del servicio</returns>
-        private bool isServiceValid(ServiceController s)
+        private static bool IsServiceValid(ServiceController s)
         {
             try
             {
@@ -173,7 +165,7 @@ namespace ServiceLauncher
         /// </summary>
         /// <param name="id">Identificador del servicio</param>
         /// <returns>El modo de inicio</returns>
-        private CustomStartMode GetServiceStartMode(String id)
+        private static CustomStartMode GetServiceStartMode(String id)
         {
             try
             {
@@ -211,7 +203,7 @@ namespace ServiceLauncher
         /// </summary>
         /// <param name="id">Identificador del servicio</param>
         /// <param name="mode">Nuevo modo a configurar</param>
-        private void SetServiceStartMode(String id, CustomStartMode mode)
+        private static void SetServiceStartMode(String id, CustomStartMode mode)
         {
             try
             {
@@ -264,25 +256,25 @@ namespace ServiceLauncher
         /// <param name="backgroundWorkerStart">Para registrar el progreso</param>
         internal void SystemStart(BackgroundWorker backgroundWorkerStart)
         {
-            if (_services.Count > 0)
+            if (_services.Count <= 0) return;
+
+            var processes = 0;
+            double step = 100 / _services.Count;
+
+            foreach (RelatedService r in _services)
             {
-                int processes = 0;
-                double step = 100 / _services.Count;
+                var s = new ServiceController(r.Id);
 
-                foreach (RelatedService r in _services)
-                {
-                    ServiceController s = new ServiceController(r.Id);
+                if (!IsServiceValid(s)) continue;
 
-                    if (isServiceValid(s))
-                        if (r.Mode == CustomStartMode.StartStop || r.Mode == CustomStartMode.StartOnly)
-                            if (s.Status != ServiceControllerStatus.Running)
-                            {
-                                backgroundWorkerStart.ReportProgress((int)Math.Ceiling((processes++ * step)));
+                if (r.Mode == CustomStartMode.StartStop || r.Mode == CustomStartMode.StartOnly)
+                    if (s.Status != ServiceControllerStatus.Running)
+                    {
+                        backgroundWorkerStart.ReportProgress((int)Math.Ceiling((processes++ * step)));
 
-                                s.Start();
-                                s.WaitForStatus(ServiceControllerStatus.Running);
-                            }
-                }
+                        s.Start();
+                        s.WaitForStatus(ServiceControllerStatus.Running);
+                    }
             }
         }
 
@@ -292,25 +284,25 @@ namespace ServiceLauncher
         /// <param name="backgroundWorkerStop">Para registrar el progreso</param>
         internal void SystemStop(BackgroundWorker backgroundWorkerStop)
         {
-            if (_services.Count > 0)
+            if (_services.Count <= 0) return;
+
+            int processes = 0;
+            double step = 100 / _services.Count;
+
+            foreach (var r in _services)
             {
-                int processes = 0;
-                double step = 100 / _services.Count;
+                var s = new ServiceController(r.Id);
 
-                foreach (RelatedService r in _services)
-                {
-                    ServiceController s = new ServiceController(r.Id);
+                if (!IsServiceValid(s)) continue;
 
-                    if (isServiceValid(s))
-                        if (r.Mode == CustomStartMode.StartStop)
-                            if (s.Status != ServiceControllerStatus.Stopped)
-                            {
-                                backgroundWorkerStop.ReportProgress((int)Math.Ceiling((processes++ * step)));
+                if (r.Mode == CustomStartMode.StartStop)
+                    if (s.Status != ServiceControllerStatus.Stopped)
+                    {
+                        backgroundWorkerStop.ReportProgress((int)Math.Ceiling((processes++ * step)));
 
-                                s.Stop();
-                                s.WaitForStatus(ServiceControllerStatus.Stopped);
-                            }
-                }
+                        s.Stop();
+                        s.WaitForStatus(ServiceControllerStatus.Stopped);
+                    }
             }
         }
     }

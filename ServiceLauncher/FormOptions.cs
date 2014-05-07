@@ -1,23 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+﻿using ServiceLauncher.Properties;
+using System;
 using System.Windows.Forms;
-using ServiceLauncher.Properties;
 
 namespace ServiceLauncher
 {
     public partial class FormOptions : Form
     {
-        private RelatedServicesManager _services;
+        private readonly RelatedServicesManager _services;
 
         public FormOptions(RelatedServicesManager services)
         {
             _services = services;
-
             InitializeComponent();
         }
 
@@ -33,7 +26,7 @@ namespace ServiceLauncher
         {
             comboBoxServices.Items.Clear();
 
-            foreach (RelatedService s in _services.Services)
+            foreach (var s in _services.Services)
                 comboBoxServices.Items.Add(s.Name);
 
             GuiMode(comboBoxServices.Items.Count > 0);
@@ -79,14 +72,14 @@ namespace ServiceLauncher
 
         internal void LoadSettings()
         {
-            this.labelPath.Text = Settings.Default.application_path_label;
-            this.openFileDialogApplication.Title = Settings.Default.application_path_title;
-            this.openFileDialogApplication.Filter = Settings.Default.application_path_filter;
-            this.openFileDialogApplication.FileName = Settings.Default.application_path_filename;
-            this.linkLabelAddService.Visible = Settings.Default.services_add_allow;
-            this.linkLabelDeleteService.Visible = Settings.Default.services_delete_allow;
-            this.linkLabelDetectServices.Visible = Settings.Default.launcher_related_keyword.Trim().Length > 0;
-            this.comboBoxSystemDefault.SelectedIndex = 0;
+            labelPath.Text = Settings.Default.application_path_label;
+            openFileDialogApplication.Title = Settings.Default.application_path_title;
+            openFileDialogApplication.Filter = Settings.Default.application_path_filter;
+            openFileDialogApplication.FileName = Settings.Default.application_path_filename;
+            linkLabelAddService.Visible = Settings.Default.services_add_allow;
+            linkLabelDeleteService.Visible = Settings.Default.services_delete_allow;
+            linkLabelDetectServices.Visible = Settings.Default.launcher_related_keyword.Trim().Length > 0;
+            comboBoxSystemDefault.SelectedIndex = 0;
         }
 
         private void comboBoxServices_SelectedIndexChanged(object sender, EventArgs e)
@@ -101,7 +94,7 @@ namespace ServiceLauncher
 
         private void UpdateServiceConfigurationOptions(RelatedService r)
         {
-            Boolean systemMode = false;
+            var systemMode = false;
             groupBoxStartMode.Enabled = true;
 
             switch (r.Mode)
@@ -123,29 +116,28 @@ namespace ServiceLauncher
                     break;
             }
 
-            if (systemMode)
+            if (!systemMode) return;
+
+            switch (r.Mode)
             {
-                switch (r.Mode)
-                {
-                    case CustomStartMode.SystemAutomatic:
-                        comboBoxSystemDefault.SelectedIndex = 0;
-                        break;
+                case CustomStartMode.SystemAutomatic:
+                    comboBoxSystemDefault.SelectedIndex = 0;
+                    break;
 
-                    case CustomStartMode.SystemAutomaticDelayed:
-                        comboBoxSystemDefault.SelectedIndex = 1;
-                        break;
+                case CustomStartMode.SystemAutomaticDelayed:
+                    comboBoxSystemDefault.SelectedIndex = 1;
+                    break;
 
-                    case CustomStartMode.SystemManual:
-                        comboBoxSystemDefault.SelectedIndex = 2;
-                        break;
+                case CustomStartMode.SystemManual:
+                    comboBoxSystemDefault.SelectedIndex = 2;
+                    break;
 
-                    case CustomStartMode.SystemDisabled:
-                        comboBoxSystemDefault.SelectedIndex = 3;
-                        break;
-                }
-
-                radioButtonSystemDefault.Checked = true;
+                case CustomStartMode.SystemDisabled:
+                    comboBoxSystemDefault.SelectedIndex = 3;
+                    break;
             }
+
+            radioButtonSystemDefault.Checked = true;
         }
 
         private void radioButtonAutomaticFull_CheckedChanged(object sender, EventArgs e)
@@ -165,29 +157,27 @@ namespace ServiceLauncher
             {
                 if (radioButtonAutomaticFull.Checked)
                     return CustomStartMode.StartStop;
-                else
-                    if (radioButtonAutomaticStart.Checked)
-                        return CustomStartMode.StartOnly;
-                    else
+                
+                if (radioButtonAutomaticStart.Checked)
+                    return CustomStartMode.StartOnly;
+                
+                if (radioButtonSystemDefault.Checked)
+                {
+                    switch (comboBoxSystemDefault.SelectedIndex)
                     {
-                        if (radioButtonSystemDefault.Checked)
-                        {
-                            switch (comboBoxSystemDefault.SelectedIndex)
-                            {
-                                case 0:
-                                    return CustomStartMode.SystemAutomatic;
+                        case 0:
+                            return CustomStartMode.SystemAutomatic;
 
-                                case 1:
-                                    return CustomStartMode.SystemAutomaticDelayed;
+                        case 1:
+                            return CustomStartMode.SystemAutomaticDelayed;
 
-                                case 2:
-                                    return CustomStartMode.SystemManual;
+                        case 2:
+                            return CustomStartMode.SystemManual;
 
-                                case 3:
-                                    return CustomStartMode.SystemDisabled;
-                            }
-                        }
+                        case 3:
+                            return CustomStartMode.SystemDisabled;
                     }
+                }
             }
 
             return CustomStartMode.Unknown;
@@ -200,7 +190,7 @@ namespace ServiceLauncher
 
         private void linkLabelDetectServices_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Boolean detectServices = false;
+            var detectServices = false;
 
             if (_services.Services.Count > 0)
             {
@@ -238,7 +228,7 @@ namespace ServiceLauncher
             if (MessageBox.Show("This will replace all your current configuration. Do you want to continue?",
                     "Apply configuration", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                foreach (RelatedService s in _services.Services)
+                foreach (var s in _services.Services)
                     s.Mode = CustomStartMode.StartStop;
 
                 UpdateServices();
@@ -259,7 +249,7 @@ namespace ServiceLauncher
         {
             if (Settings.Default.services_add_allow)
             {
-                FormAddServices f = new FormAddServices(_services);
+                var f = new FormAddServices(_services);
 
                 if (f.ShowDialog() == DialogResult.OK)
                 {
