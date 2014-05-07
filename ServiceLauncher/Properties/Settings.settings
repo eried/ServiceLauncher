@@ -1,0 +1,60 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ServiceLauncher.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="application_path" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="hide_progress" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="launcher_main_title" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Launcher</Value>
+    </Setting>
+    <Setting Name="launcher_config_title" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Launcher Configuration</Value>
+    </Setting>
+    <Setting Name="launcher_tray_title" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Launcher</Value>
+    </Setting>
+    <Setting Name="launcher_related_keyword" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="launcher_services" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="application_path_label" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Path to application:</Value>
+    </Setting>
+    <Setting Name="application_path_filename" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="application_path_filter" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Executable|*.exe</Value>
+    </Setting>
+    <Setting Name="application_path_title" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Choose a program</Value>
+    </Setting>
+    <Setting Name="launch_limited" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="services_add_allow" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="services_delete_allow" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="services_add_title" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Add services</Value>
+    </Setting>
+    <Setting Name="launcher_tray_icon" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="launcher_wizard" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="trayicon_enable" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
