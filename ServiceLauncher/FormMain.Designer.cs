@@ -49,6 +49,8 @@
             // 
             // progressBarStart
             // 
+            this.progressBarStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBarStart.Location = new System.Drawing.Point(12, 13);
             this.progressBarStart.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.progressBarStart.Name = "progressBarStart";
@@ -57,10 +59,12 @@
             // 
             // labelStatus
             // 
-            this.labelStatus.Location = new System.Drawing.Point(9, 48);
+            this.labelStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelStatus.Location = new System.Drawing.Point(9, 45);
             this.labelStatus.Name = "labelStatus";
             this.labelStatus.Size = new System.Drawing.Size(379, 24);
             this.labelStatus.TabIndex = 1;
+            this.labelStatus.Text = "Demo";
             this.labelStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // notifyIconTray
@@ -146,7 +150,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(396, 69);
+            this.ClientSize = new System.Drawing.Size(396, 74);
             this.ControlBox = false;
             this.Controls.Add(this.labelStatus);
             this.Controls.Add(this.progressBarStart);
