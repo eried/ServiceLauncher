@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>app.ico</ApplicationIcon>
+    <ApplicationIcon>app2014.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -113,7 +113,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app.ico" />
+    <Content Include="app2014.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

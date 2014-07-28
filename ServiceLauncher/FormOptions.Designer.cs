@@ -62,18 +62,18 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 15);
+            this.label1.Location = new System.Drawing.Point(13, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(105, 17);
+            this.label1.Size = new System.Drawing.Size(89, 13);
             this.label1.TabIndex = 5;
-            this.label1.Text = "Related services:";
+            this.label1.Text = "&Related services:";
             // 
             // linkLabelDetectServices
             // 
             this.linkLabelDetectServices.AutoSize = true;
-            this.linkLabelDetectServices.Location = new System.Drawing.Point(16, 63);
+            this.linkLabelDetectServices.Location = new System.Drawing.Point(13, 50);
             this.linkLabelDetectServices.Name = "linkLabelDetectServices";
-            this.linkLabelDetectServices.Size = new System.Drawing.Size(176, 17);
+            this.linkLabelDetectServices.Size = new System.Drawing.Size(145, 13);
             this.linkLabelDetectServices.TabIndex = 1;
             this.linkLabelDetectServices.TabStop = true;
             this.linkLabelDetectServices.Text = "Detect related services again";
@@ -82,9 +82,9 @@
             // linkLabelAddService
             // 
             this.linkLabelAddService.AutoSize = true;
-            this.linkLabelAddService.Location = new System.Drawing.Point(16, 310);
+            this.linkLabelAddService.Location = new System.Drawing.Point(13, 248);
             this.linkLabelAddService.Name = "linkLabelAddService";
-            this.linkLabelAddService.Size = new System.Drawing.Size(146, 17);
+            this.linkLabelAddService.Size = new System.Drawing.Size(121, 13);
             this.linkLabelAddService.TabIndex = 3;
             this.linkLabelAddService.TabStop = true;
             this.linkLabelAddService.Text = "Add services manually...";
@@ -93,9 +93,9 @@
             // linkLabelDeleteService
             // 
             this.linkLabelDeleteService.AutoSize = true;
-            this.linkLabelDeleteService.Location = new System.Drawing.Point(16, 290);
+            this.linkLabelDeleteService.Location = new System.Drawing.Point(13, 233);
             this.linkLabelDeleteService.Name = "linkLabelDeleteService";
-            this.linkLabelDeleteService.Size = new System.Drawing.Size(187, 17);
+            this.linkLabelDeleteService.Size = new System.Drawing.Size(153, 13);
             this.linkLabelDeleteService.TabIndex = 2;
             this.linkLabelDeleteService.TabStop = true;
             this.linkLabelDeleteService.Text = "Ignore current selected service";
@@ -105,12 +105,13 @@
             // 
             this.radioButtonAutomaticFull.AutoSize = true;
             this.radioButtonAutomaticFull.Checked = true;
-            this.radioButtonAutomaticFull.Location = new System.Drawing.Point(25, 35);
+            this.radioButtonAutomaticFull.Location = new System.Drawing.Point(21, 26);
+            this.radioButtonAutomaticFull.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.radioButtonAutomaticFull.Name = "radioButtonAutomaticFull";
             this.radioButtonAutomaticFull.Size = new System.Drawing.Size(200, 17);
             this.radioButtonAutomaticFull.TabIndex = 0;
             this.radioButtonAutomaticFull.TabStop = true;
-            this.radioButtonAutomaticFull.Text = "Automatic Start/Stop (recommended)";
+            this.radioButtonAutomaticFull.Text = "&Automatic Start/Stop (recommended)";
             this.toolTipInfo.SetToolTip(this.radioButtonAutomaticFull, "Service will be started at application launch and stopped automatically");
             this.radioButtonAutomaticFull.UseVisualStyleBackColor = true;
             this.radioButtonAutomaticFull.CheckedChanged += new System.EventHandler(this.radioButtonAutomaticFull_CheckedChanged);
@@ -123,19 +124,21 @@
             this.groupBoxStartMode.Controls.Add(this.radioButtonAutomaticStart);
             this.groupBoxStartMode.Controls.Add(this.radioButtonAutomaticFull);
             this.groupBoxStartMode.Enabled = false;
-            this.groupBoxStartMode.Location = new System.Drawing.Point(19, 92);
+            this.groupBoxStartMode.Location = new System.Drawing.Point(15, 72);
+            this.groupBoxStartMode.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBoxStartMode.Name = "groupBoxStartMode";
-            this.groupBoxStartMode.Size = new System.Drawing.Size(298, 184);
+            this.groupBoxStartMode.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBoxStartMode.Size = new System.Drawing.Size(298, 152);
             this.groupBoxStartMode.TabIndex = 6;
             this.groupBoxStartMode.TabStop = false;
-            this.groupBoxStartMode.Text = "Start mode";
+            this.groupBoxStartMode.Text = "&Start mode";
             // 
             // linkLabelAllAutomatic
             // 
             this.linkLabelAllAutomatic.AutoSize = true;
-            this.linkLabelAllAutomatic.Location = new System.Drawing.Point(50, 59);
+            this.linkLabelAllAutomatic.Location = new System.Drawing.Point(42, 45);
             this.linkLabelAllAutomatic.Name = "linkLabelAllAutomatic";
-            this.linkLabelAllAutomatic.Size = new System.Drawing.Size(229, 17);
+            this.linkLabelAllAutomatic.Size = new System.Drawing.Size(183, 13);
             this.linkLabelAllAutomatic.TabIndex = 1;
             this.linkLabelAllAutomatic.TabStop = true;
             this.linkLabelAllAutomatic.Text = "Apply this configuration to all services";
@@ -150,20 +153,22 @@
             "Automatic (delayed)",
             "Manual",
             "Disabled"});
-            this.comboBoxSystemDefault.Location = new System.Drawing.Point(53, 133);
+            this.comboBoxSystemDefault.Location = new System.Drawing.Point(45, 117);
+            this.comboBoxSystemDefault.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBoxSystemDefault.Name = "comboBoxSystemDefault";
-            this.comboBoxSystemDefault.Size = new System.Drawing.Size(203, 25);
+            this.comboBoxSystemDefault.Size = new System.Drawing.Size(175, 21);
             this.comboBoxSystemDefault.TabIndex = 4;
             this.comboBoxSystemDefault.SelectedIndexChanged += new System.EventHandler(this.comboBoxSystemDefault_SelectedIndexChanged);
             // 
             // radioButtonSystemDefault
             // 
             this.radioButtonSystemDefault.AutoSize = true;
-            this.radioButtonSystemDefault.Location = new System.Drawing.Point(25, 106);
+            this.radioButtonSystemDefault.Location = new System.Drawing.Point(21, 96);
+            this.radioButtonSystemDefault.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.radioButtonSystemDefault.Name = "radioButtonSystemDefault";
             this.radioButtonSystemDefault.Size = new System.Drawing.Size(97, 17);
             this.radioButtonSystemDefault.TabIndex = 3;
-            this.radioButtonSystemDefault.Text = "System default:";
+            this.radioButtonSystemDefault.Text = "System &default:";
             this.toolTipInfo.SetToolTip(this.radioButtonSystemDefault, "Service will use a system default start mode");
             this.radioButtonSystemDefault.UseVisualStyleBackColor = true;
             this.radioButtonSystemDefault.CheckedChanged += new System.EventHandler(this.radioButtonSystemDefault_CheckedChanged);
@@ -171,23 +176,28 @@
             // radioButtonAutomaticStart
             // 
             this.radioButtonAutomaticStart.AutoSize = true;
-            this.radioButtonAutomaticStart.Location = new System.Drawing.Point(25, 79);
+            this.radioButtonAutomaticStart.Location = new System.Drawing.Point(21, 67);
+            this.radioButtonAutomaticStart.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.radioButtonAutomaticStart.Name = "radioButtonAutomaticStart";
             this.radioButtonAutomaticStart.Size = new System.Drawing.Size(97, 17);
             this.radioButtonAutomaticStart.TabIndex = 2;
-            this.radioButtonAutomaticStart.Text = "Automatic Start";
+            this.radioButtonAutomaticStart.Text = "Automatic &Start";
             this.toolTipInfo.SetToolTip(this.radioButtonAutomaticStart, "Service will be started at application launch, but not stopped");
             this.radioButtonAutomaticStart.UseVisualStyleBackColor = true;
             this.radioButtonAutomaticStart.CheckedChanged += new System.EventHandler(this.radioButtonAutomatic_CheckedChanged);
             // 
             // tabControlOptions
             // 
+            this.tabControlOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlOptions.Controls.Add(this.tabPage1);
             this.tabControlOptions.Controls.Add(this.tabPage2);
-            this.tabControlOptions.Location = new System.Drawing.Point(12, 12);
+            this.tabControlOptions.Location = new System.Drawing.Point(10, 9);
+            this.tabControlOptions.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabControlOptions.Name = "tabControlOptions";
             this.tabControlOptions.SelectedIndex = 0;
-            this.tabControlOptions.Size = new System.Drawing.Size(360, 369);
+            this.tabControlOptions.Size = new System.Drawing.Size(338, 430);
             this.tabControlOptions.TabIndex = 2;
             // 
             // tabPage1
@@ -197,10 +207,11 @@
             this.tabPage1.Controls.Add(this.textBoxApplication);
             this.tabPage1.Controls.Add(this.buttonBrowse);
             this.tabPage1.Controls.Add(this.labelPath);
-            this.tabPage1.Location = new System.Drawing.Point(4, 26);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(352, 339);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPage1.Size = new System.Drawing.Size(330, 404);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Main";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -211,11 +222,12 @@
             this.checkBoxLimitedLaunch.Checked = global::ServiceLauncher.Properties.Settings.Default.launch_limited;
             this.checkBoxLimitedLaunch.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxLimitedLaunch.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ServiceLauncher.Properties.Settings.Default, "launch_limited", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBoxLimitedLaunch.Location = new System.Drawing.Point(19, 272);
+            this.checkBoxLimitedLaunch.Location = new System.Drawing.Point(16, 52);
+            this.checkBoxLimitedLaunch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxLimitedLaunch.Name = "checkBoxLimitedLaunch";
-            this.checkBoxLimitedLaunch.Size = new System.Drawing.Size(235, 21);
+            this.checkBoxLimitedLaunch.Size = new System.Drawing.Size(194, 17);
             this.checkBoxLimitedLaunch.TabIndex = 1;
-            this.checkBoxLimitedLaunch.Text = "Launch application as a limited user";
+            this.checkBoxLimitedLaunch.Text = "&Launch application as a limited user";
             this.checkBoxLimitedLaunch.UseVisualStyleBackColor = true;
             // 
             // checkBoxHideProgress
@@ -223,41 +235,44 @@
             this.checkBoxHideProgress.AutoSize = true;
             this.checkBoxHideProgress.Checked = global::ServiceLauncher.Properties.Settings.Default.hide_progress;
             this.checkBoxHideProgress.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ServiceLauncher.Properties.Settings.Default, "hide_progress", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBoxHideProgress.Location = new System.Drawing.Point(19, 299);
+            this.checkBoxHideProgress.Location = new System.Drawing.Point(16, 372);
+            this.checkBoxHideProgress.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxHideProgress.Name = "checkBoxHideProgress";
-            this.checkBoxHideProgress.Size = new System.Drawing.Size(181, 21);
+            this.checkBoxHideProgress.Size = new System.Drawing.Size(148, 17);
             this.checkBoxHideProgress.TabIndex = 2;
-            this.checkBoxHideProgress.Text = "Hide the progress window";
+            this.checkBoxHideProgress.Text = "&Hide the progress window";
             this.checkBoxHideProgress.UseVisualStyleBackColor = true;
             // 
             // textBoxApplication
             // 
             this.textBoxApplication.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ServiceLauncher.Properties.Settings.Default, "application_path", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBoxApplication.Location = new System.Drawing.Point(19, 35);
+            this.textBoxApplication.Location = new System.Drawing.Point(16, 28);
+            this.textBoxApplication.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxApplication.Name = "textBoxApplication";
             this.textBoxApplication.ReadOnly = true;
-            this.textBoxApplication.Size = new System.Drawing.Size(305, 25);
+            this.textBoxApplication.Size = new System.Drawing.Size(232, 20);
             this.textBoxApplication.TabIndex = 3;
             this.textBoxApplication.Text = global::ServiceLauncher.Properties.Settings.Default.application_path;
             // 
             // buttonBrowse
             // 
-            this.buttonBrowse.Location = new System.Drawing.Point(19, 66);
+            this.buttonBrowse.Location = new System.Drawing.Point(254, 25);
+            this.buttonBrowse.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonBrowse.Name = "buttonBrowse";
-            this.buttonBrowse.Size = new System.Drawing.Size(75, 32);
+            this.buttonBrowse.Size = new System.Drawing.Size(64, 24);
             this.buttonBrowse.TabIndex = 0;
-            this.buttonBrowse.Text = "Browse...";
+            this.buttonBrowse.Text = "&Browse...";
             this.buttonBrowse.UseVisualStyleBackColor = true;
             this.buttonBrowse.Click += new System.EventHandler(this.buttonBrowse_Click);
             // 
             // labelPath
             // 
             this.labelPath.AutoSize = true;
-            this.labelPath.Location = new System.Drawing.Point(16, 15);
+            this.labelPath.Location = new System.Drawing.Point(13, 13);
             this.labelPath.Name = "labelPath";
-            this.labelPath.Size = new System.Drawing.Size(163, 17);
+            this.labelPath.Size = new System.Drawing.Size(133, 13);
             this.labelPath.TabIndex = 1;
-            this.labelPath.Text = "Application path to launch:";
+            this.labelPath.Text = "&Application path to launch:";
             // 
             // tabPage2
             // 
@@ -267,10 +282,11 @@
             this.tabPage2.Controls.Add(this.groupBoxStartMode);
             this.tabPage2.Controls.Add(this.linkLabelAddService);
             this.tabPage2.Controls.Add(this.linkLabelDeleteService);
-            this.tabPage2.Location = new System.Drawing.Point(4, 26);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(352, 339);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPage2.Size = new System.Drawing.Size(330, 404);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Services";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -284,45 +300,48 @@
             "Automatic (delayed)",
             "Manual",
             "Disabled"});
-            this.comboBoxServices.Location = new System.Drawing.Point(19, 35);
+            this.comboBoxServices.Location = new System.Drawing.Point(15, 29);
+            this.comboBoxServices.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBoxServices.Name = "comboBoxServices";
-            this.comboBoxServices.Size = new System.Drawing.Size(298, 25);
+            this.comboBoxServices.Size = new System.Drawing.Size(298, 21);
             this.comboBoxServices.TabIndex = 0;
             this.comboBoxServices.SelectedIndexChanged += new System.EventHandler(this.comboBoxServices_SelectedIndexChanged);
             // 
             // buttonCancel
             // 
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(297, 387);
+            this.buttonCancel.Location = new System.Drawing.Point(284, 443);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 32);
+            this.buttonCancel.Size = new System.Drawing.Size(64, 24);
             this.buttonCancel.TabIndex = 1;
-            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.Text = "&Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // buttonSave
             // 
+            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSave.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonSave.Location = new System.Drawing.Point(216, 387);
+            this.buttonSave.Location = new System.Drawing.Point(214, 443);
+            this.buttonSave.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(75, 32);
+            this.buttonSave.Size = new System.Drawing.Size(64, 24);
             this.buttonSave.TabIndex = 0;
-            this.buttonSave.Text = "Save";
+            this.buttonSave.Text = "&Save";
             this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // FormOptions
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 431);
+            this.ClientSize = new System.Drawing.Size(360, 478);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.tabControlOptions);
-            this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormOptions";
