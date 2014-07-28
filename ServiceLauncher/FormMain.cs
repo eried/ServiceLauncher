@@ -105,6 +105,9 @@ namespace ServiceLauncher
             labelStatus.Text = "Starting services...";
             _currentStep = ProgramStepStatus.StartingServices;
 
+            if (Settings.Default.show_progress)
+                timerCheckStart.Interval = 1;
+
             timerCheckStart.Start();
             UseWaitCursor = true;
             backgroundWorkerStart.RunWorkerAsync();

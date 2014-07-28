@@ -51,7 +51,7 @@
             // 
             this.progressBarStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBarStart.Location = new System.Drawing.Point(12, 8);
+            this.progressBarStart.Location = new System.Drawing.Point(12, 12);
             this.progressBarStart.Name = "progressBarStart";
             this.progressBarStart.Size = new System.Drawing.Size(312, 23);
             this.progressBarStart.TabIndex = 0;
@@ -59,7 +59,7 @@
             // labelStatus
             // 
             this.labelStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelStatus.Location = new System.Drawing.Point(9, 34);
+            this.labelStatus.Location = new System.Drawing.Point(9, 38);
             this.labelStatus.Name = "labelStatus";
             this.labelStatus.Size = new System.Drawing.Size(325, 18);
             this.labelStatus.TabIndex = 1;
@@ -149,11 +149,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(336, 61);
+            this.ClientSize = new System.Drawing.Size(336, 63);
             this.ControlBox = false;
             this.Controls.Add(this.labelStatus);
             this.Controls.Add(this.progressBarStart);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormMain";

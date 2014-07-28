@@ -80,6 +80,10 @@ namespace ServiceLauncher
             linkLabelDeleteService.Visible = Settings.Default.services_delete_allow;
             linkLabelDetectServices.Visible = Settings.Default.launcher_related_keyword.Trim().Length > 0;
             comboBoxSystemDefault.SelectedIndex = 0;
+
+            radioButtonProgressNormal.Checked = Settings.Default.hide_progress == false && Settings.Default.show_progress == false;
+            radioButtonProgressAlways.Checked = Settings.Default.hide_progress == false && Settings.Default.show_progress;
+            radioButtonProgressNever.Checked = Settings.Default.hide_progress && Settings.Default.show_progress == false;
         }
 
         private void comboBoxServices_SelectedIndexChanged(object sender, EventArgs e)
@@ -237,6 +241,9 @@ namespace ServiceLauncher
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
+            Settings.Default.hide_progress = radioButtonProgressNever.Checked;
+            Settings.Default.show_progress = radioButtonProgressAlways.Checked;
+
             Settings.Default.Save();
         }
 

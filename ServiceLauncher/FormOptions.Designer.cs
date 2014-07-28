@@ -42,9 +42,6 @@
             this.radioButtonAutomaticStart = new System.Windows.Forms.RadioButton();
             this.tabControlOptions = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.checkBoxLimitedLaunch = new System.Windows.Forms.CheckBox();
-            this.checkBoxHideProgress = new System.Windows.Forms.CheckBox();
-            this.textBoxApplication = new System.Windows.Forms.TextBox();
             this.buttonBrowse = new System.Windows.Forms.Button();
             this.labelPath = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -53,10 +50,17 @@
             this.buttonSave = new System.Windows.Forms.Button();
             this.openFileDialogApplication = new System.Windows.Forms.OpenFileDialog();
             this.toolTipInfo = new System.Windows.Forms.ToolTip(this.components);
+            this.groupBoxProgressDialog = new System.Windows.Forms.GroupBox();
+            this.radioButtonProgressNever = new System.Windows.Forms.RadioButton();
+            this.radioButtonProgressAlways = new System.Windows.Forms.RadioButton();
+            this.radioButtonProgressNormal = new System.Windows.Forms.RadioButton();
+            this.checkBoxLimitedLaunch = new System.Windows.Forms.CheckBox();
+            this.textBoxApplication = new System.Windows.Forms.TextBox();
             this.groupBoxStartMode.SuspendLayout();
             this.tabControlOptions.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.groupBoxProgressDialog.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -202,8 +206,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.groupBoxProgressDialog);
             this.tabPage1.Controls.Add(this.checkBoxLimitedLaunch);
-            this.tabPage1.Controls.Add(this.checkBoxHideProgress);
             this.tabPage1.Controls.Add(this.textBoxApplication);
             this.tabPage1.Controls.Add(this.buttonBrowse);
             this.tabPage1.Controls.Add(this.labelPath);
@@ -215,44 +219,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Main";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxLimitedLaunch
-            // 
-            this.checkBoxLimitedLaunch.AutoSize = true;
-            this.checkBoxLimitedLaunch.Checked = global::ServiceLauncher.Properties.Settings.Default.launch_limited;
-            this.checkBoxLimitedLaunch.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxLimitedLaunch.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ServiceLauncher.Properties.Settings.Default, "launch_limited", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBoxLimitedLaunch.Location = new System.Drawing.Point(16, 52);
-            this.checkBoxLimitedLaunch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.checkBoxLimitedLaunch.Name = "checkBoxLimitedLaunch";
-            this.checkBoxLimitedLaunch.Size = new System.Drawing.Size(194, 17);
-            this.checkBoxLimitedLaunch.TabIndex = 1;
-            this.checkBoxLimitedLaunch.Text = "&Launch application as a limited user";
-            this.checkBoxLimitedLaunch.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxHideProgress
-            // 
-            this.checkBoxHideProgress.AutoSize = true;
-            this.checkBoxHideProgress.Checked = global::ServiceLauncher.Properties.Settings.Default.hide_progress;
-            this.checkBoxHideProgress.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ServiceLauncher.Properties.Settings.Default, "hide_progress", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBoxHideProgress.Location = new System.Drawing.Point(16, 372);
-            this.checkBoxHideProgress.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.checkBoxHideProgress.Name = "checkBoxHideProgress";
-            this.checkBoxHideProgress.Size = new System.Drawing.Size(148, 17);
-            this.checkBoxHideProgress.TabIndex = 2;
-            this.checkBoxHideProgress.Text = "&Hide the progress window";
-            this.checkBoxHideProgress.UseVisualStyleBackColor = true;
-            // 
-            // textBoxApplication
-            // 
-            this.textBoxApplication.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ServiceLauncher.Properties.Settings.Default, "application_path", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBoxApplication.Location = new System.Drawing.Point(16, 28);
-            this.textBoxApplication.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxApplication.Name = "textBoxApplication";
-            this.textBoxApplication.ReadOnly = true;
-            this.textBoxApplication.Size = new System.Drawing.Size(232, 20);
-            this.textBoxApplication.TabIndex = 3;
-            this.textBoxApplication.Text = global::ServiceLauncher.Properties.Settings.Default.application_path;
             // 
             // buttonBrowse
             // 
@@ -270,9 +236,9 @@
             this.labelPath.AutoSize = true;
             this.labelPath.Location = new System.Drawing.Point(13, 13);
             this.labelPath.Name = "labelPath";
-            this.labelPath.Size = new System.Drawing.Size(133, 13);
+            this.labelPath.Size = new System.Drawing.Size(109, 13);
             this.labelPath.TabIndex = 1;
-            this.labelPath.Text = "&Application path to launch:";
+            this.labelPath.Text = "&Application to launch:";
             // 
             // tabPage2
             // 
@@ -332,6 +298,83 @@
             this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
+            // groupBoxProgressDialog
+            // 
+            this.groupBoxProgressDialog.Controls.Add(this.radioButtonProgressNever);
+            this.groupBoxProgressDialog.Controls.Add(this.radioButtonProgressAlways);
+            this.groupBoxProgressDialog.Controls.Add(this.radioButtonProgressNormal);
+            this.groupBoxProgressDialog.Location = new System.Drawing.Point(16, 83);
+            this.groupBoxProgressDialog.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBoxProgressDialog.Name = "groupBoxProgressDialog";
+            this.groupBoxProgressDialog.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBoxProgressDialog.Size = new System.Drawing.Size(298, 101);
+            this.groupBoxProgressDialog.TabIndex = 7;
+            this.groupBoxProgressDialog.TabStop = false;
+            this.groupBoxProgressDialog.Text = "Show the &progress dialog when";
+            // 
+            // radioButtonProgressNever
+            // 
+            this.radioButtonProgressNever.AutoSize = true;
+            this.radioButtonProgressNever.Location = new System.Drawing.Point(21, 68);
+            this.radioButtonProgressNever.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.radioButtonProgressNever.Name = "radioButtonProgressNever";
+            this.radioButtonProgressNever.Size = new System.Drawing.Size(143, 17);
+            this.radioButtonProgressNever.TabIndex = 3;
+            this.radioButtonProgressNever.Text = "Never show the progress";
+            this.toolTipInfo.SetToolTip(this.radioButtonProgressNever, "Service will use a system default start mode");
+            this.radioButtonProgressNever.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonProgressAlways
+            // 
+            this.radioButtonProgressAlways.AutoSize = true;
+            this.radioButtonProgressAlways.Location = new System.Drawing.Point(21, 47);
+            this.radioButtonProgressAlways.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.radioButtonProgressAlways.Name = "radioButtonProgressAlways";
+            this.radioButtonProgressAlways.Size = new System.Drawing.Size(147, 17);
+            this.radioButtonProgressAlways.TabIndex = 2;
+            this.radioButtonProgressAlways.Text = "Always show the progress";
+            this.toolTipInfo.SetToolTip(this.radioButtonProgressAlways, "Service will be started at application launch, but not stopped");
+            this.radioButtonProgressAlways.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonProgressNormal
+            // 
+            this.radioButtonProgressNormal.AutoSize = true;
+            this.radioButtonProgressNormal.Checked = true;
+            this.radioButtonProgressNormal.Location = new System.Drawing.Point(21, 26);
+            this.radioButtonProgressNormal.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.radioButtonProgressNormal.Name = "radioButtonProgressNormal";
+            this.radioButtonProgressNormal.Size = new System.Drawing.Size(218, 17);
+            this.radioButtonProgressNormal.TabIndex = 0;
+            this.radioButtonProgressNormal.TabStop = true;
+            this.radioButtonProgressNormal.Text = "&Application/services are taking too much";
+            this.toolTipInfo.SetToolTip(this.radioButtonProgressNormal, "Service will be started at application launch and stopped automatically");
+            this.radioButtonProgressNormal.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxLimitedLaunch
+            // 
+            this.checkBoxLimitedLaunch.AutoSize = true;
+            this.checkBoxLimitedLaunch.Checked = global::ServiceLauncher.Properties.Settings.Default.launch_limited;
+            this.checkBoxLimitedLaunch.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxLimitedLaunch.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ServiceLauncher.Properties.Settings.Default, "launch_limited", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkBoxLimitedLaunch.Location = new System.Drawing.Point(16, 52);
+            this.checkBoxLimitedLaunch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkBoxLimitedLaunch.Name = "checkBoxLimitedLaunch";
+            this.checkBoxLimitedLaunch.Size = new System.Drawing.Size(194, 17);
+            this.checkBoxLimitedLaunch.TabIndex = 1;
+            this.checkBoxLimitedLaunch.Text = "&Launch application as a limited user";
+            this.checkBoxLimitedLaunch.UseVisualStyleBackColor = true;
+            // 
+            // textBoxApplication
+            // 
+            this.textBoxApplication.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ServiceLauncher.Properties.Settings.Default, "application_path", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBoxApplication.Location = new System.Drawing.Point(16, 28);
+            this.textBoxApplication.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxApplication.Name = "textBoxApplication";
+            this.textBoxApplication.ReadOnly = true;
+            this.textBoxApplication.Size = new System.Drawing.Size(232, 20);
+            this.textBoxApplication.TabIndex = 3;
+            this.textBoxApplication.Text = global::ServiceLauncher.Properties.Settings.Default.application_path;
+            // 
             // FormOptions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -354,6 +397,8 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.groupBoxProgressDialog.ResumeLayout(false);
+            this.groupBoxProgressDialog.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -371,7 +416,6 @@
         private System.Windows.Forms.RadioButton radioButtonAutomaticStart;
         private System.Windows.Forms.TabControl tabControlOptions;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.CheckBox checkBoxHideProgress;
         private System.Windows.Forms.TextBox textBoxApplication;
         private System.Windows.Forms.Button buttonBrowse;
         private System.Windows.Forms.Label labelPath;
@@ -383,5 +427,9 @@
         private System.Windows.Forms.LinkLabel linkLabelAllAutomatic;
         private System.Windows.Forms.ToolTip toolTipInfo;
         private System.Windows.Forms.CheckBox checkBoxLimitedLaunch;
+        private System.Windows.Forms.GroupBox groupBoxProgressDialog;
+        private System.Windows.Forms.RadioButton radioButtonProgressNever;
+        private System.Windows.Forms.RadioButton radioButtonProgressAlways;
+        private System.Windows.Forms.RadioButton radioButtonProgressNormal;
     }
 }
