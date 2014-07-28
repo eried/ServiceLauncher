@@ -42,7 +42,7 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(228, 299);
+            this.buttonOK.Location = new System.Drawing.Point(229, 299);
             this.buttonOK.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(64, 24);
@@ -54,7 +54,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(298, 299);
+            this.buttonCancel.Location = new System.Drawing.Point(299, 299);
             this.buttonCancel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(64, 24);
@@ -66,17 +66,17 @@
             // 
             this.textBoxKeyword.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxKeyword.Location = new System.Drawing.Point(104, 9);
+            this.textBoxKeyword.Location = new System.Drawing.Point(101, 9);
             this.textBoxKeyword.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxKeyword.Name = "textBoxKeyword";
-            this.textBoxKeyword.Size = new System.Drawing.Size(258, 20);
+            this.textBoxKeyword.Size = new System.Drawing.Size(261, 20);
             this.textBoxKeyword.TabIndex = 0;
             this.textBoxKeyword.TextChanged += new System.EventHandler(this.textBoxKeyword_TextChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 12);
+            this.label1.Location = new System.Drawing.Point(9, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(86, 13);
             this.label1.TabIndex = 6;
@@ -94,17 +94,15 @@
             this.listBoxResults.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.listBoxResults.FormattingEnabled = true;
             this.listBoxResults.IntegralHeight = false;
-            this.listBoxResults.Location = new System.Drawing.Point(15, 35);
+            this.listBoxResults.Location = new System.Drawing.Point(12, 35);
             this.listBoxResults.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.listBoxResults.Name = "listBoxResults";
             this.listBoxResults.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.listBoxResults.Size = new System.Drawing.Size(347, 260);
+            this.listBoxResults.Size = new System.Drawing.Size(350, 260);
             this.listBoxResults.TabIndex = 7;
             // 
             // FormAddServices
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(374, 332);
             this.Controls.Add(this.listBoxResults);
             this.Controls.Add(this.label1);

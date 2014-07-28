@@ -53,7 +53,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBarStart.Location = new System.Drawing.Point(12, 12);
             this.progressBarStart.Name = "progressBarStart";
-            this.progressBarStart.Size = new System.Drawing.Size(312, 23);
+            this.progressBarStart.Size = new System.Drawing.Size(309, 23);
             this.progressBarStart.TabIndex = 0;
             // 
             // labelStatus
@@ -61,7 +61,7 @@
             this.labelStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelStatus.Location = new System.Drawing.Point(9, 38);
             this.labelStatus.Name = "labelStatus";
-            this.labelStatus.Size = new System.Drawing.Size(325, 18);
+            this.labelStatus.Size = new System.Drawing.Size(321, 18);
             this.labelStatus.TabIndex = 1;
             this.labelStatus.Text = "Demo";
             this.labelStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -82,32 +82,32 @@
             this.hideIconToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.contextMenuStripTray.Name = "contextMenuStripTray";
-            this.contextMenuStripTray.Size = new System.Drawing.Size(153, 98);
+            this.contextMenuStripTray.Size = new System.Drawing.Size(127, 76);
             // 
             // configurationToolStripMenuItem
             // 
             this.configurationToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.configurationToolStripMenuItem.Name = "configurationToolStripMenuItem";
-            this.configurationToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.configurationToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.configurationToolStripMenuItem.Text = "&Options...";
             this.configurationToolStripMenuItem.Click += new System.EventHandler(this.configurationToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(123, 6);
             // 
             // hideIconToolStripMenuItem
             // 
             this.hideIconToolStripMenuItem.Name = "hideIconToolStripMenuItem";
-            this.hideIconToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.hideIconToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.hideIconToolStripMenuItem.Text = "&Hide icon";
             this.hideIconToolStripMenuItem.Click += new System.EventHandler(this.hideIconToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.exitToolStripMenuItem.Text = "&Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -147,9 +147,7 @@
             // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(332, 59);
+            this.ClientSize = new System.Drawing.Size(333, 67);
             this.ControlBox = false;
             this.Controls.Add(this.labelStatus);
             this.Controls.Add(this.progressBarStart);
