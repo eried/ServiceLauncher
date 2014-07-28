@@ -1,6 +1,6 @@
-﻿using ServiceLauncher.Properties;
-using System;
+﻿using System;
 using System.Windows.Forms;
+using ServiceLauncher.Properties;
 
 namespace ServiceLauncher
 {
@@ -16,17 +16,14 @@ namespace ServiceLauncher
 
         internal RelatedServicesManager Services
         {
-            get
-            {
-                return _services;
-            }
+            get { return _services; }
         }
 
         private void UpdateServices()
         {
             comboBoxServices.Items.Clear();
 
-            foreach (var s in _services.Services)
+            foreach (RelatedService s in _services.Services)
                 comboBoxServices.Items.Add(s.Name);
 
             GuiMode(comboBoxServices.Items.Count > 0);
@@ -81,8 +78,10 @@ namespace ServiceLauncher
             linkLabelDetectServices.Visible = Settings.Default.launcher_related_keyword.Trim().Length > 0;
             comboBoxSystemDefault.SelectedIndex = 0;
 
-            radioButtonProgressNormal.Checked = Settings.Default.hide_progress == false && Settings.Default.show_progress == false;
-            radioButtonProgressAlways.Checked = Settings.Default.hide_progress == false && Settings.Default.show_progress;
+            radioButtonProgressNormal.Checked = Settings.Default.hide_progress == false &&
+                                                Settings.Default.show_progress == false;
+            radioButtonProgressAlways.Checked = Settings.Default.hide_progress == false &&
+                                                Settings.Default.show_progress;
             radioButtonProgressNever.Checked = Settings.Default.hide_progress && Settings.Default.show_progress == false;
         }
 
@@ -98,7 +97,7 @@ namespace ServiceLauncher
 
         private void UpdateServiceConfigurationOptions(RelatedService r)
         {
-            var systemMode = false;
+            bool systemMode = false;
             groupBoxStartMode.Enabled = true;
 
             switch (r.Mode)
@@ -151,7 +150,7 @@ namespace ServiceLauncher
 
         private void SaveServiceConfigurationOptions()
         {
-            if(comboBoxServices.SelectedIndex!=-1)
+            if (comboBoxServices.SelectedIndex != -1)
                 _services.Services[comboBoxServices.SelectedIndex].Mode = GetSelectedServiceConfiguration();
         }
 
@@ -161,10 +160,10 @@ namespace ServiceLauncher
             {
                 if (radioButtonAutomaticFull.Checked)
                     return CustomStartMode.StartStop;
-                
+
                 if (radioButtonAutomaticStart.Checked)
                     return CustomStartMode.StartOnly;
-                
+
                 if (radioButtonSystemDefault.Checked)
                 {
                     switch (comboBoxSystemDefault.SelectedIndex)
@@ -194,7 +193,7 @@ namespace ServiceLauncher
 
         private void linkLabelDetectServices_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var detectServices = false;
+            bool detectServices = false;
 
             if (_services.Services.Count > 0)
             {
@@ -230,9 +229,9 @@ namespace ServiceLauncher
         private void linkLabelAllAutomatic_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (MessageBox.Show("This will replace all your current configuration. Do you want to continue?",
-                    "Apply configuration", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                "Apply configuration", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                foreach (var s in _services.Services)
+                foreach (RelatedService s in _services.Services)
                     s.Mode = CustomStartMode.StartStop;
 
                 UpdateServices();

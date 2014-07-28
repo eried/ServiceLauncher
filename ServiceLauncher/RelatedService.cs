@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace ServiceLauncher
 {
     /// <summary>
-    /// Modo de inicio personalizado
+    ///     Modo de inicio personalizado
     /// </summary>
     public enum CustomStartMode
     {
@@ -22,7 +19,7 @@ namespace ServiceLauncher
     public class RelatedService
     {
         /// <summary>
-        /// Servicio relacionado
+        ///     Servicio relacionado
         /// </summary>
         /// <param name="id">Identificador del servicio en el sistema</param>
         /// <param name="name">Nombre para mostrar</param>
@@ -34,20 +31,22 @@ namespace ServiceLauncher
             Mode = mode;
         }
 
-        public RelatedService()  {  }
+        public RelatedService()
+        {
+        }
 
         /// <summary>
-        /// Identificador del proceso (nombre interno)
+        ///     Identificador del proceso (nombre interno)
         /// </summary>
         public string Id { get; set; }
 
         /// <summary>
-        /// Nombre del proceso
+        ///     Nombre del proceso
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Modo de inicio
+        ///     Modo de inicio
         /// </summary>
         public CustomStartMode Mode { get; set; }
     }

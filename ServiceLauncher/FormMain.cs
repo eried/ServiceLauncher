@@ -1,5 +1,4 @@
-﻿using ServiceLauncher.Properties;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -7,16 +6,18 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using ServiceLauncher.Properties;
 
 namespace ServiceLauncher
 {
     public partial class FormMain : Form
     {
-        private RelatedServicesManager _services;
+        private readonly FormOptions _programOptions;
         private readonly XmlSerializer _serializer;
-        private readonly FormOptions _programOptions; 
         private ProgramStepStatus _currentStep;
-        private Boolean _programNotConfigured, _waitingForSettings;
+        private Boolean _programNotConfigured;
+        private RelatedServicesManager _services;
+        private Boolean _waitingForSettings;
 
         public FormMain()
         {
@@ -24,7 +25,7 @@ namespace ServiceLauncher
             _waitingForSettings = false;
             _programNotConfigured = false;
             _services = new RelatedServicesManager();
-            _serializer = new XmlSerializer(typeof(List<RelatedService>));
+            _serializer = new XmlSerializer(typeof (List<RelatedService>));
             _programOptions = new FormOptions(_services);
 
             if (Settings.Default.launcher_services.Length == 0)
@@ -38,7 +39,7 @@ namespace ServiceLauncher
             {
                 LoadServiceSettings();
             }
- 
+
             InitializeComponent();
 
             // Cargar la configuración
@@ -48,7 +49,7 @@ namespace ServiceLauncher
         }
 
         /// <summary>
-        /// Guarda la configuración, la lista de servicios es serializada
+        ///     Guarda la configuración, la lista de servicios es serializada
         /// </summary>
         private void SaveServiceSettings()
         {
@@ -59,12 +60,12 @@ namespace ServiceLauncher
         }
 
         /// <summary>
-        /// Restaura la configuración
+        ///     Restaura la configuración
         /// </summary>
         private void LoadServiceSettings()
         {
             var s = new StringReader(Settings.Default.launcher_services);
-            _services.Services = (List<RelatedService>)_serializer.Deserialize(s);
+            _services.Services = (List<RelatedService>) _serializer.Deserialize(s);
         }
 
         internal void FormLoad()
@@ -74,7 +75,9 @@ namespace ServiceLauncher
                 {
                     notifyIconTray.Icon = new Icon(Settings.Default.launcher_tray_icon);
                 }
-                catch { }
+                catch
+                {
+                }
 
             notifyIconTray.Visible = Settings.Default.trayicon_enable;
 
@@ -113,20 +116,19 @@ namespace ServiceLauncher
             backgroundWorkerStart.RunWorkerAsync();
         }
 
-        private void showProgress()
+        private void ShowProgress()
         {
-            if (!Settings.Default.hide_progress)
-            {
-                CenterToScreen();
+            if (Settings.Default.hide_progress) return;
 
-                Show();
-                Focus();
+            CenterToScreen();
 
-                progressBarStart.Style = ProgressBarStyle.Marquee;
-            }
+            Show();
+            Focus();
+
+            progressBarStart.Style = ProgressBarStyle.Marquee;
         }
 
-        private void hideProgress()
+        private void HideProgress()
         {
             Focus();
             Hide();
@@ -140,63 +142,62 @@ namespace ServiceLauncher
         }
 
         /// <summary>
-        /// Despliega las opciones del programa
+        ///     Despliega las opciones del programa
         /// </summary>
         private void ShowOptions()
         {
             // Evitar que sea lanzado por diferentes threads
-            if (!_waitingForSettings)
+            if (_waitingForSettings) return;
+            _programOptions.LoadSettings();
+
+            _waitingForSettings = true;
+
+            if (_programNotConfigured)
+                Hide();
+
+            if (Settings.Default.launcher_wizard && _programNotConfigured)
             {
-                _programOptions.LoadSettings();
+                // Mostrar el diálogo para elegir el programa
+                Settings.Default.application_path = _programOptions.ShowBrowseForApplication();
+                Settings.Default.Save();
 
-                _waitingForSettings = true;
-
-                if (_programNotConfigured)
-                    Hide();
-
-                if (Settings.Default.launcher_wizard && _programNotConfigured)
-                {
-                    // Mostrar el diálogo para elegir el programa
-                    Settings.Default.application_path = _programOptions.ShowBrowseForApplication();
-                    Settings.Default.Save();
-
-                    if (Settings.Default.application_path.Length > 0)
-                        RelaunchMe();
-                }
-                else
-                    if (_programOptions.ShowDialog() == DialogResult.OK)
-                    {
-                        // Guardar la nueva configuración
-                        _services = _programOptions.Services;
-                        _services.UpdateSystemConfiguration();
-                        SaveServiceSettings();
-                        Settings.Default.Save();
-                    }
-                    else
-                    {
-                        // Restaurar la configuración anterior
-                        LoadServiceSettings();
-                        Settings.Default.Reload();
-                    }
-
-                // Si no hay un programa a ejecutar, entonces se finaliza
-                if (_programNotConfigured)
-                    ExitApplication();
-
-                _waitingForSettings = false;
+                if (Settings.Default.application_path.Length > 0)
+                    RelaunchMe();
             }
+            else if (_programOptions.ShowDialog() == DialogResult.OK)
+            {
+                // Guardar la nueva configuración
+                _services = _programOptions.Services;
+                _services.UpdateSystemConfiguration();
+                SaveServiceSettings();
+                Settings.Default.Save();
+            }
+            else
+            {
+                // Restaurar la configuración anterior
+                LoadServiceSettings();
+                Settings.Default.Reload();
+            }
+
+            // Si no hay un programa a ejecutar, entonces se finaliza
+            if (_programNotConfigured)
+                ExitApplication();
+
+            _waitingForSettings = false;
         }
 
         /// <summary>
-        /// Vuelve a lanzar el programa actual
+        ///     Vuelve a lanzar el programa actual
         /// </summary>
-        private void RelaunchMe()
+        private static void RelaunchMe()
         {
             try
             {
                 Process.Start(Process.GetCurrentProcess().MainModule.FileName);
             }
-            catch { }
+            catch
+            {
+            }
         }
 
         private void ExitApplication()
@@ -216,6 +217,38 @@ namespace ServiceLauncher
             ExitApplication();
         }
 
+        private void timerCheckStart_Tick(object sender, EventArgs e)
+        {
+            timerCheckStart.Stop();
+
+            // Comprobar si debería mostrarse la marquesina de progreso
+            if (_currentStep == ProgramStepStatus.StartingServices)
+                ShowProgress();
+        }
+
+        private void timerCheckStop_Tick(object sender, EventArgs e)
+        {
+            timerCheckStop.Stop();
+
+            // Comprobar si debería mostrarse la marquesina de progreso
+            if (_currentStep == ProgramStepStatus.StoppingServices)
+                ShowProgress();
+        }
+
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (_currentStep != ProgramStepStatus.Exiting)
+            {
+                notifyIconTray.Visible = false;
+                e.Cancel = true;
+            }
+        }
+
+        private void hideIconToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            notifyIconTray.Visible = false;
+        }
+
         #region "Código principal"
 
         private void backgroundWorkerStart_DoWork(object sender, DoWorkEventArgs e)
@@ -226,14 +259,14 @@ namespace ServiceLauncher
         private void backgroundWorkerStart_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             _currentStep = ProgramStepStatus.WaitingApplication;
-            hideProgress();
+            HideProgress();
 
             backgroundWorkerWait.RunWorkerAsync();
         }
 
         private static T[] SubArray<T>(T[] data, int index, int length)
         {
-            T[] result = new T[length];
+            var result = new T[length];
             Array.Copy(data, index, result, 0, length);
             return result;
         }
@@ -244,11 +277,11 @@ namespace ServiceLauncher
             {
                 Process p;
 
-                String args = "";
+                var args = "";
                 if (Environment.GetCommandLineArgs().Length > 0)
                 {
                     var argsArray = Environment.GetCommandLineArgs();
-                    args = String.Join(" ", SubArray(argsArray, 1, argsArray.Length-1));
+                    args = String.Join(" ", SubArray(argsArray, 1, argsArray.Length - 1));
                 }
 
                 if (Settings.Default.launch_limited)
@@ -261,10 +294,7 @@ namespace ServiceLauncher
                 else
                 {
                     // Lanzar la aplicación y esperar
-                    p = new Process();
-                    p.StartInfo.FileName = Settings.Default.application_path;
-                    p.StartInfo.Arguments = args;
-
+                    p = new Process {StartInfo = {FileName = Settings.Default.application_path, Arguments = args}};
                     p.Start();
                 }
 
@@ -282,10 +312,10 @@ namespace ServiceLauncher
 
         private void backgroundWorkerWait_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            this.labelStatus.Text = "Stopping services...";
+            labelStatus.Text = "Stopping services...";
             _currentStep = ProgramStepStatus.StoppingServices;
 
-            this.timerCheckStop.Start();
+            timerCheckStop.Start();
             backgroundWorkerStop.RunWorkerAsync();
         }
 
@@ -310,7 +340,7 @@ namespace ServiceLauncher
 
         private void UpdateProgressStatus(String format, int progress)
         {
-            this.labelStatus.Text = String.Format(format,
+            labelStatus.Text = String.Format(format,
                 GetServiceNameByProgress(progress));
         }
 
@@ -318,8 +348,7 @@ namespace ServiceLauncher
         {
             if (p.Length < length)
                 return p;
-            else
-                return p.Substring(0, p.Length - 3) + "...";
+            return p.Substring(0, p.Length - 3) + "...";
         }
 
         private string GetServiceNameByProgress(int progress)
@@ -331,7 +360,7 @@ namespace ServiceLauncher
                 if (progress > 100)
                     progress = 100;
 
-                n = (int)Math.Ceiling(progress / (double)(100 / _services.Services.Count));
+                n = (int) Math.Ceiling(progress/(double) (100/_services.Services.Count));
             }
             return GetNameOrId(_services.Services[n]);
         }
@@ -347,45 +376,14 @@ namespace ServiceLauncher
         {
             UpdateProgressStatus("Stopping {0}...", e.ProgressPercentage);
         }
+
         #endregion
-
-        private void timerCheckStart_Tick(object sender, EventArgs e)
-        {
-            timerCheckStart.Stop();
-
-            // Comprobar si debería mostrarse la marquesina de progreso
-            if (_currentStep == ProgramStepStatus.StartingServices)
-                showProgress();
-        }
-
-        private void timerCheckStop_Tick(object sender, EventArgs e)
-        {
-            timerCheckStop.Stop();
-
-            // Comprobar si debería mostrarse la marquesina de progreso
-            if (_currentStep == ProgramStepStatus.StoppingServices)
-                showProgress();
-        }
-
-        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (_currentStep != ProgramStepStatus.Exiting)
-            {
-                notifyIconTray.Visible = false;
-                e.Cancel = true;
-            }
-        }
-
-        private void hideIconToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            notifyIconTray.Visible = false;
-        }
     }
 
     /// <summary>
-    /// Estado del programa
+    ///     Estado del programa
     /// </summary>
-    enum ProgramStepStatus
+    internal enum ProgramStepStatus
     {
         JustStarted,
         StartingServices,

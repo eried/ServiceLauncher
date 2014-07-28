@@ -1,19 +1,33 @@
-﻿using System.Linq;
-using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.ServiceProcess;
+using Microsoft.Win32;
 
 namespace ServiceLauncher
 {
     public class RelatedServicesManager
     {
-        List<RelatedService> _services;
+        private readonly List<RelatedService> _services;
 
         public RelatedServicesManager()
         {
             _services = new List<RelatedService>();
+        }
+
+        internal List<RelatedService> Services
+        {
+            get { return _services; }
+
+            set
+            {
+                _services.Clear();
+
+                // Evitar duplicados
+                foreach (RelatedService s in value)
+                    Add(s);
+            }
         }
 
         internal Boolean Add(RelatedService r)
@@ -23,7 +37,7 @@ namespace ServiceLauncher
                 _services.Add(r);
                 return true;
             }
-            
+
             return false;
         }
 
@@ -43,15 +57,17 @@ namespace ServiceLauncher
 
             text = text.ToLower().Trim();
 
-            if(text.Length > 0)
-                output.AddRange(ServiceController.GetServices().Where(s => s.DisplayName.ToLower().Contains(text) || s.ServiceName.ToLower().Contains(text)));
+            if (text.Length > 0)
+                output.AddRange(
+                    ServiceController.GetServices()
+                        .Where(s => s.DisplayName.ToLower().Contains(text) || s.ServiceName.ToLower().Contains(text)));
 
             return output;
         }
 
         internal void Add(List<ServiceController> list)
         {
-            foreach (var s in list)
+            foreach (ServiceController s in list)
                 Add(s);
         }
 
@@ -74,7 +90,10 @@ namespace ServiceLauncher
         {
             try
             {
-                return (String)Registry.LocalMachine.OpenSubKey(@"System\CurrentControlSet\services\" + id).GetValue("DisplayName");
+                return
+                    (String)
+                        Registry.LocalMachine.OpenSubKey(@"System\CurrentControlSet\services\" + id)
+                            .GetValue("DisplayName");
             }
             catch
             {
@@ -101,32 +120,15 @@ namespace ServiceLauncher
             return false;
         }
 
-        internal List<RelatedService> Services
-        {
-            get
-            {
-                return _services;
-            }
-
-            set
-            {
-                _services.Clear();
-
-                // Evitar duplicados
-                foreach (RelatedService s in value)
-                    Add(s);
-            }
-        }
-
         /// <summary>
-        /// Aplica y prepara la configuración de cada servicio
+        ///     Aplica y prepara la configuración de cada servicio
         /// </summary>
         /// <returns>Verdadero si la configuración de aplicó, o Falso si ocurrió un error</returns>
         internal Boolean UpdateSystemConfiguration()
         {
             try
             {
-                foreach (var r in _services)
+                foreach (RelatedService r in _services)
                 {
                     var s = new ServiceController(r.Id);
 
@@ -143,7 +145,7 @@ namespace ServiceLauncher
         }
 
         /// <summary>
-        /// Comprueba si un ServiceController tiene un servicio válido relacionado
+        ///     Comprueba si un ServiceController tiene un servicio válido relacionado
         /// </summary>
         /// <param name="s">Controlador de servicio a comprobar</param>
         /// <returns>Validez del servicio</returns>
@@ -155,13 +157,14 @@ namespace ServiceLauncher
                     return true;
             }
             catch
-            {  }
+            {
+            }
 
             return false;
         }
 
         /// <summary>
-        /// Obtiene el modo actual configurado en el registro del sistema de inicio de un servicio
+        ///     Obtiene el modo actual configurado en el registro del sistema de inicio de un servicio
         /// </summary>
         /// <param name="id">Identificador del servicio</param>
         /// <returns>El modo de inicio</returns>
@@ -169,12 +172,16 @@ namespace ServiceLauncher
         {
             try
             {
-                switch (Convert.ToInt16(Registry.LocalMachine.OpenSubKey(@"System\CurrentControlSet\services\" + id).GetValue("Start")))
+                switch (
+                    Convert.ToInt16(
+                        Registry.LocalMachine.OpenSubKey(@"System\CurrentControlSet\services\" + id).GetValue("Start")))
                 {
                     case 2:
                         return Convert.ToInt16(Registry.LocalMachine.OpenSubKey(@"System\CurrentControlSet\services\" +
-                            id).GetValue("DelayedAutostart", 0)) == 0 ? CustomStartMode.SystemAutomatic :
-                            CustomStartMode.SystemAutomaticDelayed;
+                                                                                id).GetValue("DelayedAutostart", 0)) ==
+                               0
+                            ? CustomStartMode.SystemAutomatic
+                            : CustomStartMode.SystemAutomaticDelayed;
                     case 3:
                         return CustomStartMode.SystemManual;
                     case 4:
@@ -190,7 +197,7 @@ namespace ServiceLauncher
         }
 
         /// <summary>
-        /// Cambia el modo de inicio de un servicio en el registro del sistema
+        ///     Cambia el modo de inicio de un servicio en el registro del sistema
         /// </summary>
         /// <param name="r">Objeto que incluye el modo de inicio actualizado</param>
         private void SetServiceStartMode(RelatedService r)
@@ -199,7 +206,7 @@ namespace ServiceLauncher
         }
 
         /// <summary>
-        /// Cambia el modo de inicio de un servicio en el registro del sistema
+        ///     Cambia el modo de inicio de un servicio en el registro del sistema
         /// </summary>
         /// <param name="id">Identificador del servicio</param>
         /// <param name="mode">Nuevo modo a configurar</param>
@@ -237,8 +244,9 @@ namespace ServiceLauncher
                     Registry.LocalMachine.CreateSubKey(@"System\CurrentControlSet\services\" + id).SetValue("Start",
                         modeValue, RegistryValueKind.DWord);
 
-                    Registry.LocalMachine.CreateSubKey(@"System\CurrentControlSet\services\" + id).SetValue("DelayedAutostart",
-                        specialDelayed ? 1 : 0, RegistryValueKind.DWord);
+                    Registry.LocalMachine.CreateSubKey(@"System\CurrentControlSet\services\" + id)
+                        .SetValue("DelayedAutostart",
+                            specialDelayed ? 1 : 0, RegistryValueKind.DWord);
                 }
                 else
                     throw new Exception("Wrong service startup mode");
@@ -251,15 +259,15 @@ namespace ServiceLauncher
         }
 
         /// <summary>
-        /// Realiza las acciones de inicio de servicios según la configuración
+        ///     Realiza las acciones de inicio de servicios según la configuración
         /// </summary>
         /// <param name="backgroundWorkerStart">Para registrar el progreso</param>
         internal void SystemStart(BackgroundWorker backgroundWorkerStart)
         {
             if (_services.Count <= 0) return;
 
-            var processes = 0;
-            double step = 100 / _services.Count;
+            int processes = 0;
+            double step = 100/_services.Count;
 
             foreach (RelatedService r in _services)
             {
@@ -270,7 +278,7 @@ namespace ServiceLauncher
                 if (r.Mode == CustomStartMode.StartStop || r.Mode == CustomStartMode.StartOnly)
                     if (s.Status != ServiceControllerStatus.Running)
                     {
-                        backgroundWorkerStart.ReportProgress((int)Math.Ceiling((processes++ * step)));
+                        backgroundWorkerStart.ReportProgress((int) Math.Ceiling((processes++*step)));
 
                         s.Start();
                         s.WaitForStatus(ServiceControllerStatus.Running);
@@ -279,7 +287,7 @@ namespace ServiceLauncher
         }
 
         /// <summary>
-        /// Realiza las acciones de detención de servicios según la configuración
+        ///     Realiza las acciones de detención de servicios según la configuración
         /// </summary>
         /// <param name="backgroundWorkerStop">Para registrar el progreso</param>
         internal void SystemStop(BackgroundWorker backgroundWorkerStop)
@@ -287,9 +295,9 @@ namespace ServiceLauncher
             if (_services.Count <= 0) return;
 
             int processes = 0;
-            double step = 100 / _services.Count;
+            double step = 100/_services.Count;
 
-            foreach (var r in _services)
+            foreach (RelatedService r in _services)
             {
                 var s = new ServiceController(r.Id);
 
@@ -298,7 +306,7 @@ namespace ServiceLauncher
                 if (r.Mode == CustomStartMode.StartStop)
                     if (s.Status != ServiceControllerStatus.Stopped)
                     {
-                        backgroundWorkerStop.ReportProgress((int)Math.Ceiling((processes++ * step)));
+                        backgroundWorkerStop.ReportProgress((int) Math.Ceiling((processes++*step)));
 
                         s.Stop();
                         s.WaitForStatus(ServiceControllerStatus.Stopped);
