@@ -1,7 +1,7 @@
 ServiceLauncher
 ===============
 
-Starts and stops services required for a program before and after launching the program itself. Useful to deal with applications with lots of required Windows services, like VMware Workstation.
+The main purpose of this application is to provide a way to launch some services on demand, required an specific application. After the application is terminated, the related services are stopped. Useful to deal with applications with lots of Windows services, like VMware Workstation.
 
 How to
 ------
