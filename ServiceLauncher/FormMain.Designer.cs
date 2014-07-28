@@ -82,33 +82,33 @@
             this.hideIconToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.contextMenuStripTray.Name = "contextMenuStripTray";
-            this.contextMenuStripTray.Size = new System.Drawing.Size(151, 76);
+            this.contextMenuStripTray.Size = new System.Drawing.Size(153, 98);
             // 
             // configurationToolStripMenuItem
             // 
             this.configurationToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.configurationToolStripMenuItem.Name = "configurationToolStripMenuItem";
-            this.configurationToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-            this.configurationToolStripMenuItem.Text = "Configuration";
+            this.configurationToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.configurationToolStripMenuItem.Text = "&Options...";
             this.configurationToolStripMenuItem.Click += new System.EventHandler(this.configurationToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(147, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
             // 
             // hideIconToolStripMenuItem
             // 
             this.hideIconToolStripMenuItem.Name = "hideIconToolStripMenuItem";
-            this.hideIconToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-            this.hideIconToolStripMenuItem.Text = "Hide icon";
+            this.hideIconToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.hideIconToolStripMenuItem.Text = "&Hide icon";
             this.hideIconToolStripMenuItem.Click += new System.EventHandler(this.hideIconToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Text = "&Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // timerStartup
@@ -149,7 +149,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(336, 63);
+            this.ClientSize = new System.Drawing.Size(332, 59);
             this.ControlBox = false;
             this.Controls.Add(this.labelStatus);
             this.Controls.Add(this.progressBarStart);
